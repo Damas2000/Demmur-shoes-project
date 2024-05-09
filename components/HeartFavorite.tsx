@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useUser } from "@clerk/nextjs";
 import { Heart } from "lucide-react";
@@ -56,8 +56,16 @@ const HeartFavorite = ({ product, updateSignedInUser }: HeartFavoriteProps) => {
   };
 
   return (
-    <button onClick={handleLike}>
-      <Heart fill={`${isLiked ? "red" : "white"}`} />
+    <button
+      onClick={handleLike}
+      className={`p-2 rounded-full border ${
+        isLiked ? "bg-red-500 border-red-500" : "bg-white border-grey-2"
+      } transition-all duration-200 hover:shadow-lg`}
+    >
+      <Heart
+        fill={`${isLiked ? "white" : "transparent"}`}
+        className={`${isLiked ? "text-white" : "text-grey-2"}`}
+      />
     </button>
   );
 };

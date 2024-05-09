@@ -91,10 +91,31 @@ const config: Config = {
         "red-1": "#FF0000",
         "grey-1": "#F7F7F7",
         "grey-2": "#8A8A8A",
+        primary: "#3B2C2C",
+        secondary: "#7F1D1D",
+        accent: "#D4AF37",
+        "accent-dark": "#B8860B",
+        light: "#F0F0F0",
+        dark: "#FFFFFF",
+        orange: {
+          500: "#FF5722",
+          600: "#E64A19",
+        },
+        green: {
+          200: "#A5D6A7",
+          800: "#2E7D32",
+        },
+        yellow: {
+          400: "#FFEB3B",
+        },
+      },
+      fontFamily: {
+        sans: ["Roboto", "sans-serif"],
+        serif: ["Playfair Display", "serif"],
       },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],
 };
-export default config;
 
+export default config;

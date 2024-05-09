@@ -17,11 +17,15 @@ const CollectionDetails = async ({
         width={1500}
         height={1000}
         alt="collection"
-        className="w-full h-[400px] object-cover rounded-xl"
+        className="w-full h-[400px] object-cover rounded-xl shadow-lg"
       />
-      <p className="text-heading3-bold text-grey-2">{collectionDetails.title}</p>
-      <p className="text-body-normal text-grey-2 text-center max-w-[900px]">{collectionDetails.description}</p>
-      <div className="flex flex-wrap gap-16 justify-center">
+      <h1 className="text-heading2-bold text-primary text-center mt-6">
+        {collectionDetails.title}
+      </h1>
+      <p className="text-base-medium text-grey-2 text-center max-w-[900px]">
+        {collectionDetails.description}
+      </p>
+      <div className="flex flex-wrap gap-10 justify-center mt-10">
         {collectionDetails.products.map((product: ProductType) => (
           <ProductCard key={product._id} product={product} />
         ))}
@@ -33,4 +37,3 @@ const CollectionDetails = async ({
 export default CollectionDetails;
 
 export const dynamic = "force-dynamic";
-
