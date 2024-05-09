@@ -24,3 +24,13 @@ body,
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-in-out;
 }
+/* globals.css */
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}

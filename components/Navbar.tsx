@@ -87,6 +87,16 @@ const Navbar = () => {
               Orders
             </Link>
           </li>
+          <li>
+            <Link
+              href="/contact"
+              className={`hover:text-accent transition-colors duration-200 ${
+                pathname === "/contact" && "text-accent"
+              }`}
+            >
+              Contact
+            </Link>
+          </li>
         </ul>
 
         {/* Search Bar */}
@@ -220,6 +230,15 @@ const Navbar = () => {
                 >
                   <ShoppingCart />
                   <span>Cart ({cart.cartItems.length})</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="hover:text-accent transition-colors duration-200"
+                  onClick={() => setDropdownMenu(false)}
+                >
+                  Contact
                 </Link>
               </li>
             </motion.ul>

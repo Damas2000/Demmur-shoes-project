@@ -1,10 +1,13 @@
+// app/(root)/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 
 import "../globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import ToasterProvider from "@/lib/providers/ToasterProvider";
+import WhatsappButton from "@/components/WhatsappButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Demmur Store",
     description: "Demmur Ecommerce Store",
-    url: "https://demmur-store.com",
+    url: "https://demmurshoes.vercel.app",
     siteName: "Demmur Store",
     images: [
       {
@@ -46,8 +49,10 @@ export default function RootLayout({
         <ClerkProvider>
           <Navbar />
           {children}
+          <Footer />
+          <WhatsappButton />
+          <ToasterProvider />
         </ClerkProvider>
-        <ToasterProvider />
       </body>
     </html>
   );
