@@ -1,6 +1,7 @@
 "use client";
 
 import useCart from "@/lib/hooks/useCart";
+
 import { useUser } from "@clerk/nextjs";
 import { MinusCircle, PlusCircle, Trash } from "lucide-react";
 import Image from "next/image";
@@ -15,8 +16,8 @@ const Cart = () => {
     (acc, cartItem) => acc + cartItem.item.price * cartItem.quantity,
     0
   );
-  const totalRounded = total.toFixed(2);
-
+  const totalRounded = parseFloat(total.toFixed(2));
+  console.log(user)
   const customer = {
     clerkId: user?.id,
     email: user?.emailAddresses[0].emailAddress,
@@ -26,15 +27,15 @@ const Cart = () => {
   const handleCheckout = async () => {
     try {
       if (!user) {
-        router.push("/sign-in");
+        router.push("sign-in");
       } else {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ cartItems: cart.cartItems, customer }),
         });
         const data = await res.json();
         window.location.href = data.url;
+        console.log(data);
       }
     } catch (err) {
       console.log("[checkout_POST]", err);
@@ -43,7 +44,6 @@ const Cart = () => {
 
   return (
     <div className="flex gap-20 py-16 px-10 max-lg:flex-col max-sm:px-3">
-      {/* Shopping Cart Section */}
       <div className="w-2/3 max-lg:w-full">
         <p className="text-heading3-bold">Shopping Cart</p>
         <hr className="my-6" />
@@ -51,12 +51,9 @@ const Cart = () => {
         {cart.cartItems.length === 0 ? (
           <p className="text-body-bold">No item in cart</p>
         ) : (
-          <div className="flex flex-col gap-6">
+          <div>
             {cart.cartItems.map((cartItem) => (
-              <div
-                key={cartItem.item._id + cartItem.color + cartItem.size}
-                className="w-full flex max-sm:flex-col max-sm:gap-3 hover:bg-grey-1 px-4 py-3 items-center max-sm:items-start justify-between rounded-lg shadow-md"
-              >
+              <div className="w-full flex max-sm:flex-col max-sm:gap-3 hover:bg-grey-1 px-4 py-3 items-center max-sm:items-start justify-between">
                 <div className="flex items-center">
                   <Image
                     src={cartItem.item.media[0]}
@@ -68,22 +65,15 @@ const Cart = () => {
                   <div className="flex flex-col gap-3 ml-4">
                     <p className="text-body-bold">{cartItem.item.title}</p>
                     {cartItem.color && (
-                      <p className="text-small-medium text-grey-2">
-                        Color: {cartItem.color}
-                      </p>
+                      <p className="text-small-medium">{cartItem.color}</p>
                     )}
                     {cartItem.size && (
-                      <p className="text-small-medium text-grey-2">
-                        Size: {cartItem.size}
-                      </p>
+                      <p className="text-small-medium">{cartItem.size}</p>
                     )}
-                    <p className="text-small-medium text-grey-2">
-                      ${cartItem.item.price}
-                    </p>
+                    <p className="text-small-medium">${cartItem.item.price}</p>
                   </div>
                 </div>
 
-                {/* Quantity Controls */}
                 <div className="flex gap-4 items-center">
                   <MinusCircle
                     className="hover:text-red-1 cursor-pointer"
@@ -106,8 +96,7 @@ const Cart = () => {
         )}
       </div>
 
-      {/* Summary Section */}
-      <div className="w-1/3 max-lg:w-full flex flex-col gap-8 bg-grey-1 rounded-lg px-6 py-8 shadow-lg">
+      <div className="w-1/3 max-lg:w-full flex flex-col gap-8 bg-grey-1 rounded-lg px-4 py-5">
         <p className="text-heading4-bold pb-4">
           Summary{" "}
           <span>{`(${cart.cartItems.length} ${
@@ -119,7 +108,7 @@ const Cart = () => {
           <span>$ {totalRounded}</span>
         </div>
         <button
-          className="bg-accent text-white text-body-bold py-3 rounded-lg hover:bg-accent-dark transition-all duration-300"
+          className="border rounded-lg text-body-bold bg-white py-3 w-full hover:bg-black hover:text-white"
           onClick={handleCheckout}
         >
           Proceed to Checkout
